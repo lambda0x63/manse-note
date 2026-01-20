@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model contains an expression index which requires additional setup for migrations. Visit https://pris.ly/d/expression-indexes for more info.
+model Person {
+  id                 String   @id @default(uuid())
+  name               String
+  birthDate          DateTime @map("birth_date")
+  birthTime          String?  @map("birth_time")
+  gender             String
+  memo               String?
+  saju               Json
+  fortuneStartAge    Int      @map("fortune_start_age")
+  fortunes           Json
+  reliability        String   @default("확실")
+  warnings           String[]
+  createdAt          DateTime @default(now()) @map("created_at")
+  updatedAt          DateTime @updatedAt @map("updated_at")
+  isBirthTimeUnknown Boolean  @default(false) @map("is_birth_time_unknown")
+  isLunar            Boolean  @default(false) @map("is_lunar")
+  tenGods            Json?    @map("ten_gods")
+  shinsal            Json?    @map("shinsal")
+
+  @@map("persons")
+}
